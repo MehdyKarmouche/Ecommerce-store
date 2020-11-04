@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
+import { Link } from 'react-router-dom'
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -15,6 +16,10 @@ const useStyles = makeStyles((theme)=> ({
     media: {
       height: 140,
     },
+    link: {
+      color:'black',
+      textDecoration:'none'
+    }
   }));
 
 const Product = ({product}) => {
@@ -22,27 +27,28 @@ const Product = ({product}) => {
     return (
 
     <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={product.image}
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {product.name}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-              <Rating
-              value ={product.rating}
-              text={`${product.numReviews} reviews`}/>
-          </Typography>
-          <Typography variant="h5" color="textSecondary" component="p">
-            ${product.price}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      
+      <Link className={classes.link} to={`/product/${product._id}`}>
+        <CardActionArea>
+          <CardMedia
+            className={classes.media}
+            image={product.image}
+            title="Contemplative Reptile"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {product.name}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component={'span'}>
+                <Rating
+                value ={product.rating}
+                text={`${product.numReviews} reviews`}/>
+            </Typography>
+            <Typography variant="h5" color="textSecondary" component="p">
+              ${product.price}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Link>
     </Card>
     )
 }

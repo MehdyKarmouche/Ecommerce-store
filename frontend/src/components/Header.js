@@ -4,6 +4,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,21 +17,35 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  link: {
+    color:'white',
+    textDecoration:'none'
+  }
 }));
 
 const Header = () => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-        <AppBar position="static">
-            <Toolbar>
-            <Typography variant="h6" className={classes.title}>
-                E-Commerce
-            </Typography>
-            <Button color="inherit">Sign in</Button>
-            <Button color="inherit">Cart</Button>
-            </Toolbar>
-        </AppBar>
+          <AppBar position="static">
+              <Toolbar>
+              <Typography variant="h6" className={classes.title}>
+                <Link className={classes.link} to ='/'>
+                    E-Commerce
+                </Link>
+              </Typography>
+              <Button color="inherit">
+                <Link className={classes.link} to ='/login'>
+                  Sign in
+                </Link>
+              </Button>
+              <Button color="inherit">
+                <Link className={classes.link} to ='/cart'>
+                  Cart
+                </Link>
+              </Button>
+              </Toolbar>
+          </AppBar>
         </div>
     )
 }
