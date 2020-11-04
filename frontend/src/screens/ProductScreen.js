@@ -39,11 +39,11 @@ const ProductScreen = ({match}) => {
 
     return (
         <>
-            <Button className={classes.button} variant="contained" color="primary">
-                <Link className={classes.link} to='/'>
-                Back
-                </Link>
-            </Button>
+            <Link className={classes.link} to='/'>
+                <Button className={classes.button} variant="contained" color="primary">
+                    Back
+                </Button>
+            </Link>
             <Container>
             <Grid container spacing={3}>
                 <Grid item xs={6}>
@@ -71,7 +71,7 @@ const ProductScreen = ({match}) => {
                         </Typography>
                     </CardContent>
                 <CardActions className={classes.cartButton}>
-                    <Button color="primary" variant="contained" size="medium">ADD TO CART</Button>
+                    <Button color="primary" variant="contained" size="medium" disabled={product.countInStock===0}>ADD TO CART</Button>
                 </CardActions>
                 </Card>
                 </Grid>
