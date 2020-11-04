@@ -11,6 +11,14 @@ import Card from '@material-ui/core/Card';
 import Rating from '../components/Rating'
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import InboxIcon from '@material-ui/icons/Inbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
+
 
 const useStyles = makeStyles(() => ({
     
@@ -52,27 +60,46 @@ const ProductScreen = ({match}) => {
                     </Paper>
                 </Grid>
                 <Grid item xs={3}>
-                    <Typography className={classes.title} variant="h5" color="textSecondary" component={'span'}>
-                        {product.name}
-                    </Typography>
-                    <Rating value={product.rating} text={`${product.numReviews} reviews`}/>
-                    <Typography variant="h6" color="textSecondary" component={'span'}>Price: {product.price}</Typography>
-                    <Typography> </Typography>
-                    <Typography variant="p" color="textSecondary" component={'span'}>{product.description}</Typography>
+                    <List>
+                        <ListItem>
+                            <Typography className={classes.title} variant="h5" color="textSecondary" component={'span'}>
+                                {product.name}
+                            </Typography>
+                        </ListItem>
+                        <ListItem>
+                            <Rating value={product.rating} text={`${product.numReviews} reviews`}/>
+                        </ListItem>
+                        <ListItem>
+                            <Typography variant="h6" color="textSecondary" component={'span'}>
+                                Price: {product.price}
+                            </Typography>
+                        </ListItem>
+                        <ListItem>
+                            <Typography variant="p" color="textSecondary" component={'span'}>
+                                {product.description}
+                            </Typography>
+                        </ListItem>
+                    </List>
                 </Grid>
                 <Grid item xs={3}>
                 <Card variant="outlined" className={classes.root}>
+                <List>
                     <CardContent>
-                        <Typography variant="h5" color="textSecondary" component="h2" >
-                            <strong>Price: {product.price}</strong>
+                    <ListItem>
+                        <Typography variant="h5" color="textSecondary"  component="h2" >
+                            <strong>Price:</strong> {product.price}
                         </Typography>
+                    </ListItem>
+                    <ListItem>
                         <Typography variant="h5" color="textSecondary" component="h2" >
-                            <strong>Status: {product.countInStock>0 ? 'In Stock' : 'Out Of Stock'}</strong>
+                            <strong>Status:</strong> {product.countInStock>0 ? 'In Stock' : 'Out Of Stock'}
                         </Typography>
+                    </ListItem>
                     </CardContent>
                 <CardActions className={classes.cartButton}>
                     <Button color="primary" variant="contained" size="medium" disabled={product.countInStock===0}>ADD TO CART</Button>
                 </CardActions>
+                </List>
                 </Card>
                 </Grid>
         
