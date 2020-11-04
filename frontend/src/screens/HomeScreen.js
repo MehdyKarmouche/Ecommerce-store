@@ -1,14 +1,13 @@
 import React from 'react'
 import products from '../products'
 import { makeStyles } from '@material-ui/core/styles'
-import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import Product from '../components/Product'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin:'100px'
+    margin:'50px'
     
   },
   paper: {
@@ -24,7 +23,7 @@ const HomeScreen = () => {
     return (
     <div className={classes.root}>
         <Container>
-        <Grid  container spacing={6}>
+        <Grid  container spacing={3}>
             {products.map((product)=> (
                 <Grid key={product._id} item xs={12} sm={6} md={4}>
                     <Product product={product} />
