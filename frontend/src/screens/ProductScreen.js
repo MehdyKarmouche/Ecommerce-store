@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import products from '../products'
 import Button from '@material-ui/core/Button';
@@ -13,11 +13,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
+
 
 
 const useStyles = makeStyles(() => ({
@@ -42,8 +38,16 @@ const useStyles = makeStyles(() => ({
   }));
 
 const ProductScreen = ({match}) => {
+    const [product,setProduct] = useState({})
     const classes = useStyles();
-    const product = products.find(p => p._id === match.params.id)
+    
+    async function fetchProduct(){
+        const res = await fetch(`http://localhost:4000/api/products/${match.params.id}`)
+        res.json().then(res => setProduct(res))
+      }
+      useEffect(() => {
+        fetchProduct()
+      },[])
 
     return (
         <>
