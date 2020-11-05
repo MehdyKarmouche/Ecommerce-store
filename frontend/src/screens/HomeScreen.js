@@ -1,5 +1,5 @@
-import React from 'react'
-import products from '../products'
+import React, {useState, useEffect} from 'react'
+//import products from '../products'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
@@ -19,7 +19,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const HomeScreen = () => {
+    const [products,setProducts] = useState([])
     const classes = useStyles();
+
+    async function fetchProducts(){
+      const res = await fetch("http://localhost:4000/api/products")
+      
+      res.json().then(res => setProducts(res))
+      
+  
+  
+    }
+    useEffect(() => {
+      fetchProducts()
+    },[])
+    
     return (
     <div className={classes.root}>
         <Container>
