@@ -79,7 +79,7 @@ const ProductScreen = ({match}) => {
                             </Typography>
                         </ListItem>
                         <ListItem>
-                            <Typography variant="p" color="textSecondary" component={'span'}>
+                            <Typography  color="textSecondary" component={'span'}>
                                 {product.description}
                             </Typography>
                         </ListItem>
