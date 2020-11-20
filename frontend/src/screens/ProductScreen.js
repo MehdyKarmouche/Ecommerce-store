@@ -42,7 +42,7 @@ const ProductScreen = ({match}) => {
     const classes = useStyles();
     
     async function fetchProduct(){
-        const res = await fetch(`http://localhost:4000/api/products/${match.params.id}`)
+        const res = await fetch(`http://localhost:5000/api/products/${match.params.id}`)
         res.json().then(res => setProduct(res))
       }
       useEffect(() => {

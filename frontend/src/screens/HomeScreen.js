@@ -23,7 +23,7 @@ const HomeScreen = () => {
     const classes = useStyles();
 
     async function fetchProducts(){
-      const res = await fetch("http://localhost:4000/api/products")
+      const res = await fetch("http://localhost:5000/api/products")
       
       res.json().then(res => setProducts(res))
       
