@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react'
+import React, { useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {listProductDetails} from '../actions/productActions'
 import {Link} from 'react-router-dom'
@@ -17,6 +17,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import { FormControl } from '@material-ui/core'
 
 
 
@@ -44,6 +47,7 @@ const useStyles = makeStyles(() => ({
 const ProductScreen = ({match}) => {
     
     const classes = useStyles();
+    const [qty,setQty] = useState(0)
     const dispatch = useDispatch()
 
     const productDetails = useSelector(state => state.productDetails)
@@ -52,6 +56,10 @@ const ProductScreen = ({match}) => {
       useEffect(() => {
         dispatch(listProductDetails(match.params.id))
       },[dispatch, match])
+
+      const handleChangeQuantity = (event) => {
+        setQty(event.target.value);
+      };
 
     return (
         <>
@@ -107,6 +115,26 @@ const ProductScreen = ({match}) => {
                             <strong>Status:</strong> {product.countInStock>0 ? 'In Stock' : 'Out Of Stock'}
                         </Typography>
                     </ListItem>
+                    <ListItem>
+                    {product.countInStock > 0 && (
+                        
+                            <TextField 
+                            id="standard-select-currency"
+                            select
+                            value={qty}
+                            onChange={handleChangeQuantity}
+                            helperText="Select quantity">
+                                {
+                                    [...Array(product.countInStock).keys()].map((x)=>(
+                                        <MenuItem key={x+1} value={x+1}>
+                                            {x+1}
+                                        </MenuItem>
+                                    ))
+                                }
+                                
+                            </TextField>
+                            )}
+                        </ListItem>
                     </CardContent>
                 <CardActions className={classes.cartButton}>
                     <Button color="primary" variant="contained" size="medium" disabled={product.countInStock===0}>ADD TO CART</Button>
