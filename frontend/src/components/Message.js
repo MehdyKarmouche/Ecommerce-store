@@ -11,11 +11,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Message = () => {
+const Message = ({error}) => {
     const classes = useStyles()
     return (
         <div className={classes.root}>
-             <Alert severity="error">This is an error alert — check it out!</Alert>
+             <Alert severity="error">{error}</Alert>
         </div>
     )
 }
