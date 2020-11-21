@@ -1,4 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, { useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {listProductDetails} from '../actions/productActions'
 import {Link} from 'react-router-dom'
 import products from '../products'
 import Button from '@material-ui/core/Button';
@@ -13,6 +15,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 
 
 
@@ -38,16 +42,16 @@ const useStyles = makeStyles(() => ({
   }));
 
 const ProductScreen = ({match}) => {
-    const [product,setProduct] = useState({})
-    const classes = useStyles();
     
-    async function fetchProduct(){
-        const res = await fetch(`http://localhost:5000/api/products/${match.params.id}`)
-        res.json().then(res => setProduct(res))
-      }
+    const classes = useStyles();
+    const dispatch = useDispatch()
+
+    const productDetails = useSelector(state => state.productDetails)
+    const {loading, error, product} = productDetails
+    
       useEffect(() => {
-        fetchProduct()
-      },[])
+        dispatch(listProductDetails(match.params.id))
+      },[dispatch, match])
 
     return (
         <>
@@ -56,8 +60,12 @@ const ProductScreen = ({match}) => {
                     Back
                 </Button>
             </Link>
+           
             <Container>
-            <Grid container spacing={3}>
+            {loading ? <Loader />
+            : error ? <Message error={error}/>
+            :(
+                <Grid container spacing={3}>
                 <Grid item xs={6}>
                     <Paper elevation={0}  className={classes.paper}>
                         <img className={classes.image} src={product.image} alt={product.name}/>
@@ -108,6 +116,9 @@ const ProductScreen = ({match}) => {
                 </Grid>
         
             </Grid>
+            )
+            }
+            
         </Container>
         </>
     )
