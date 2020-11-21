@@ -7,16 +7,23 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     '& > * + *': {
       marginLeft: theme.spacing(2),
+        
     },
   },
+  spinner: {
+    width: '100px',
+    height: '100px',
+    margin: 'auto',
+    display: 'block',
+  }
+  
 }));
 
 const Loader = () => {
     const classes = useStyles()
     return (
         <div className={classes.root}>
-            <CircularProgress />
-            <CircularProgress color="secondary" />
+            <CircularProgress className={classes.spinner} />
         </div>
     )
 }
