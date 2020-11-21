@@ -5,6 +5,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import Product from '../components/Product'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 import {listProducts} from '../actions/productActions'
 
 const useStyles = makeStyles((theme) => ({
@@ -38,15 +40,17 @@ const HomeScreen = () => {
     return (
     <div className={classes.root}>
         <Container>
-          
-        <Grid  container spacing={3}>
+          {loading ? 
+            <Loader/>
+          : error ? <h2>{error}</h2>
+          :<Grid  container spacing={3}>
             {products.map((product)=> (
                 <Grid key={product._id} item xs={12} sm={6} md={4}>
                     <Product product={product} />
                 </Grid>
-            ))}
-        </Grid>
-        
+            ))} 
+          </Grid>
+          }
         </Container>
     </div>
     )
