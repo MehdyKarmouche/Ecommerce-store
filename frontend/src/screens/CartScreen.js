@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import Message from '../components/Message'
 import {Link} from 'react-router-dom'
@@ -11,8 +11,14 @@ const CartScreen = ({match, location, history}) => {
     const qty = location.search ? Number(location.search.split('=')[1]) : 1
 
     const dispatch = useDispatch()
+    const cart = useSelector(state =>  state.cart)
+    const {cartItems} = cart
 
-    useEffect(()=> {})
+    useEffect(()=> {
+        if(productId){
+            dispatch(addToCart(productId, qty))
+        }
+    },[dispatch, productId, qty])
     return (
         <div>
             <h1>Test</h1>
