@@ -44,7 +44,7 @@ const useStyles = makeStyles(() => ({
     }
   }));
 
-const ProductScreen = ({match}) => {
+const ProductScreen = ({match, history}) => {
     
     const classes = useStyles();
     const [qty,setQty] = useState(0)
@@ -60,6 +60,9 @@ const ProductScreen = ({match}) => {
       const handleChangeQuantity = (event) => {
         setQty(event.target.value);
       };
+      const addToCartHanlder = () => {
+        history.push(`/cart/${match.params.id}?qty=${qty}`)
+      }
 
     return (
         <>
@@ -137,7 +140,7 @@ const ProductScreen = ({match}) => {
                         </ListItem>
                     </CardContent>
                 <CardActions className={classes.cartButton}>
-                    <Button color="primary" variant="contained" size="medium" disabled={product.countInStock===0}>ADD TO CART</Button>
+                    <Button onClick={addToCartHanlder} color="primary" variant="contained" size="medium" disabled={product.countInStock===0}>ADD TO CART</Button>
                 </CardActions>
                 </List>
                 </Card>
