@@ -42,7 +42,7 @@ const HomeScreen = () => {
         <Container>
           {loading ? 
             <Loader/>
-          : error ? <h2>{error}</h2>
+          : error ? <Message/>
           :<Grid  container spacing={3}>
             {products.map((product)=> (
                 <Grid key={product._id} item xs={12} sm={6} md={4}>
