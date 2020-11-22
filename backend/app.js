@@ -7,13 +7,15 @@ var cors = require('cors')
 const connectDB = require ('./config/database.js')
 const dotenv = require("dotenv").config();
 
-var indexRouter = require('./routes/index');
+
 var productRouter = require('./routes/productRouter');
-var usersRouter = require('./routes/users');
+var userRouter = require('./routes/userRouter');
+
 
 var app = express();
 
-
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
 connectDB()
 
@@ -25,12 +27,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
 
 app.use('/api/products', productRouter);
-app.use('/users', usersRouter);
+app.use('/api/users', userRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
 
 // error handler
 app.use(function(err, req, res, next) {
