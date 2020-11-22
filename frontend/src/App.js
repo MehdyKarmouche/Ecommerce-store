@@ -6,6 +6,7 @@ import HomeScreen from './screens/HomeScreen'
 import Container from '@material-ui/core/Container';
 import ProductScreen from './screens/ProductScreen'
 import CartScreen from './screens/CartScreen'
+import LoginScreen from './screens/LoginScreen'
 
 
 function App() {
@@ -14,9 +15,10 @@ function App() {
       <Header/>
         <main>
           <Container>
-          <Route exact path='/' component={HomeScreen}/>
+          <Route path='/login' component={LoginScreen}/>
           <Route path='/product/:id' component={ProductScreen}/>
           <Route path='/cart/:id?' component={CartScreen}/>
+          <Route exact path='/' component={HomeScreen}/>
           </Container>
         </main>
       <Footer/>
