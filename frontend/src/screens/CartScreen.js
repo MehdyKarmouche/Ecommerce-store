@@ -1,29 +1,69 @@
-import React, {useEffect} from 'react'
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
-import Message from '../components/Message'
-import {Link} from 'react-router-dom'
+import {addToCart} from '../actions/cartActions'
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import Container from '@material-ui/core/Container'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import {addToCart} from '../actions/cartActions'
-import { CardContent } from '@material-ui/core';
+import ListItemText from '@material-ui/core/ListItemText';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import { Button } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
-const useStyles = makeStyles(() => ({
-    root : {
-        flexGrow:1
+const products = [
+  { name: 'Product 1', desc: 'A nice thing', price: '$9.99' },
+  { name: 'Product 2', desc: 'Another thing', price: '$3.45' },
+  { name: 'Product 3', desc: 'Something else', price: '$6.51' },
+  { name: 'Product 4', desc: 'Best thing of all', price: '$14.11' },
+  { name: 'Shipping', desc: '', price: 'Free' },
+];
+
+
+const useStyles = makeStyles((theme) => ({
+  listItem: {
+    padding: theme.spacing(1, 0),
+  },
+  total: {
+    fontWeight: 700,
+  },
+  title: {
+    marginTop: theme.spacing(2),
+  },
+  layout: {
+    width: 'auto',
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+      width: 600,
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
-    image : {
-       height:"80px"
-   }
-  }));
-
+  },
+  paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6),
+      padding: theme.spacing(3),
+    },
+  },
+  image : {
+      height:"50px",
+      width:"50px"
+  },
+  button : {
+    width:"100%"
+  },
+  price : {
+      marginLeft:"25px"
+  }
+  
+}));
 
 const CartScreen = ({match, location, history}) => {
     const classes = useStyles()
@@ -44,68 +84,70 @@ const CartScreen = ({match, location, history}) => {
 
     }
 
-    const emptyCart = "Your cart is empty"
-    return (
-        <Container className={classes.root}>
-            <Grid  className={classes.root}>
-                <h1>Shopping Cart</h1>
-                <Grid item md={8}>
-                    {cartItems.length === 0 ? <Message error={emptyCart}/> : (
-                        <Container>
-                            {cartItems.map((item) => (
-                                <Grid container spacing={0}>
-                                    <Grid item md={2}>
-                                        <img className={classes.image} src={item.image} alt={item.name}/>
-                                    </Grid>
-                                    <Grid item md={2}>
-                                        <Link to={`/product/${item.product}`}>{item.name}</Link>
-                                    </Grid>
-                                    <Grid item md={2}>
-                                        ${item.price}
-                                    </Grid>
-                                    <Grid item md={2}>
-                                        <TextField 
-                                            id="standard-select-currency"
-                                            select
-                                            value={item.qty}
-                                            onChange={(e) => dispatch(addToCart(item.product,Number(e.target.value)))}
-                                            helperText="Select quantity">
-                                            {
-                                                [...Array(item.countInStock).keys()].map((x)=>(
-                                                <MenuItem key={x+1} value={x+1}>
-                                                    {x+1}
-                                                </MenuItem>
-                                                ))
-                                            }
-                                    
-                                        </TextField>
-                                    </Grid>
-                                    <Grid item>
-                                            <Button varaint="primary" onClick = {() => removeFromCartHanlder(item.product)}>Remove</Button>
-                                    </Grid>
-                                </Grid>
-                    ))}
-                        </Container>
-                    )}
-                </Grid>
-                <Grid item md={4}>
-                    <Card variant="outlined">
-                        <List>
-                            <CardContent>
-                                <ListItem>
-                                    <Typography>
-                                        Subtotal ({cartItems.reduce((acc,item)=> acc + item.qty, 0)})
-                                        items
-                                    </Typography>
-                                </ListItem>
-                            </CardContent>
-                        </List>
-                    </Card>
-                </Grid>
-                
-            </Grid>
-        </Container>
-    )
-}
+    const checkoutHandler = () => {
+        history.push('/login?redirect=shipping')
+    }
 
+    const emptyCart = "Your cart is empty"
+
+  return (
+    <React.Fragment>
+    <main className={classes.layout}>
+    <Paper className={classes.paper}>
+      <Typography variant="h6" gutterBottom>
+        Order summary
+      </Typography>
+      <List disablePadding>
+        {cartItems.map((item) => (
+        <Grid>
+          <ListItem className={classes.listItem} key={item.product}>
+                <Grid item md={6}>
+                    <ListItemText primary={item.name}  />
+                </Grid>
+                <Grid item md={2}>
+                    <TextField 
+                        id="standard-select-currency"
+                        select
+                        value={item.qty}
+                        onChange={(e) => dispatch(addToCart(item.product,Number(e.target.value)))}
+                        helperText="Select quantity">
+                        {
+                            [...Array(item.countInStock).keys()].map((x)=>(
+                            <MenuItem key={x+1} value={x+1}>
+                                {x+1}
+                            </MenuItem>
+                            ))
+                        }
+                                            
+                    </TextField>
+                 </Grid>
+                 <Grid item md={2}>
+                    <Typography className={classes.price} variant="body2">${item.price}</Typography>
+                </Grid>
+                <Grid item md={2}>
+                    <Button><DeleteIcon color="primary"/></Button>
+                </Grid>
+          </ListItem>
+          </Grid>
+        ))}
+        <ListItem className={classes.listItem}>
+          <ListItemText primary="Total items" />
+          <Typography variant="subtitle1" className={classes.total}>
+          You have ({cartItems.reduce((acc,item)=> acc + item.qty, 0)}) items
+          </Typography>
+        </ListItem>
+        <ListItem className={classes.listItem}>
+          <ListItemText primary="Total price" />
+          <Typography variant="subtitle1" className={classes.total}>
+            ${cartItems.reduce((acc,item)=> acc + item.qty * item.price, 0).toFixed(2)}
+          </Typography>
+        </ListItem>
+      </List>
+      <Button disabled={cartItems.length == 0} onClick={checkoutHandler} variant="contained" color="primary" className={classes.button}>Proceed to checkout</Button>
+     </Paper>
+     
+     </main>
+    </React.Fragment>
+  );
+}
 export default CartScreen
