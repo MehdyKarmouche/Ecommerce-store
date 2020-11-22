@@ -1,4 +1,5 @@
 import React from 'react';
+import {useDispatch, useSelector} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -24,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
     const classes = useStyles();
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
+    const logoutHandler = () => {
+      console.log("implement me !")
+    }
     return (
         <div className={classes.root}>
           <AppBar position="static">
@@ -33,11 +39,16 @@ const Header = () => {
                     E-Commerce
                 </Link>
               </Typography>
-              <Button color="inherit">
-                <Link className={classes.link} to ='/login'>
-                  Sign in
-                </Link>
-              </Button>
+              {userInfo ? (<>
+                <Button color="inherit">Profile</Button>
+                <Button onClick={logoutHandler} color="inherit">Logout</Button>
+              </>)
+              :<Button color="inherit">
+              <Link className={classes.link} to ='/login'>
+                Sign in
+              </Link>
+            </Button>
+            }
               <Button color="inherit">
                 <Link className={classes.link} to ='/cart'>
                   Cart
