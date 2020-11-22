@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
-import {addToCart} from '../actions/cartActions'
+import {addToCart, removeFromCart} from '../actions/cartActions'
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
@@ -81,7 +81,7 @@ const CartScreen = ({match, location, history}) => {
     },[dispatch, productId, qty])
 
     const removeFromCartHanlder = (id) => {
-
+        dispatch(removeFromCart(id))
     }
 
     const checkoutHandler = () => {
@@ -125,7 +125,7 @@ const CartScreen = ({match, location, history}) => {
                     <Typography className={classes.price} variant="body2">${item.price}</Typography>
                 </Grid>
                 <Grid item md={2}>
-                    <Button><DeleteIcon color="primary"/></Button>
+                    <Button onClick = {() => removeFromCartHanlder(item.product)}><DeleteIcon color="primary"/></Button>
                 </Grid>
           </ListItem>
           </Grid>
