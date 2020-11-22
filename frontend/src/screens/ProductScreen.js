@@ -69,7 +69,7 @@ const ProductScreen = ({match, history}) => {
                     Back
                 </Button>
             </Link>
-           
+
             <Container>
             {loading ? <Loader />
             : error ? <Message error={error}/>

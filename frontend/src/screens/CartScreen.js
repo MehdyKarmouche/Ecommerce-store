@@ -13,13 +13,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { Button } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const products = [
-  { name: 'Product 1', desc: 'A nice thing', price: '$9.99' },
-  { name: 'Product 2', desc: 'Another thing', price: '$3.45' },
-  { name: 'Product 3', desc: 'Something else', price: '$6.51' },
-  { name: 'Product 4', desc: 'Best thing of all', price: '$14.11' },
-  { name: 'Shipping', desc: '', price: 'Free' },
-];
 
 
 const useStyles = makeStyles((theme) => ({
@@ -88,7 +81,6 @@ const CartScreen = ({match, location, history}) => {
         history.push('/login?redirect=shipping')
     }
 
-    const emptyCart = "Your cart is empty"
 
   return (
     <React.Fragment>
@@ -143,7 +135,7 @@ const CartScreen = ({match, location, history}) => {
           </Typography>
         </ListItem>
       </List>
-      <Button disabled={cartItems.length == 0} onClick={checkoutHandler} variant="contained" color="primary" className={classes.button}>Proceed to checkout</Button>
+      <Button disabled={cartItems.length === 0} onClick={checkoutHandler} variant="contained" color="primary" className={classes.button}>Proceed to checkout</Button>
      </Paper>
      
      </main>
