@@ -53,7 +53,7 @@ export const register = (email,password,name) => async (dispatch) => {
             payload: data
         })
         dispatch({
-            type: USER_LOGIN_REQUEST,
+            type: USER_LOGIN_SUCCESS,
             payload: data
         })
         localStorage.setItem('userInfo',JSON.stringify(data))

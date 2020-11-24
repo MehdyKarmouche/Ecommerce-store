@@ -52,7 +52,7 @@ const RegisterScreen = ({location, history}) => {
     const {loading,error,userInfo} = userRegister
 
     const redirect = location.search ? location.search.split('=')[1] : '/'
-    console.log(redirect)
+    
     const submitHandler = (e) => {
         e.preventDefault()
         if(password !== confirmPassword){
