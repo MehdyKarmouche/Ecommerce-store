@@ -24,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
   link: {
     color:'white',
     textDecoration:'none'
+  },
+  linkNav: {
+    textDecoration:'none',
+    color:'black'
   }
 }));
 
@@ -68,7 +72,7 @@ const Header = () => {
                   open={Boolean(anchorEl)}
                   onClose={closeMenuHandler}
                 >
-                  <MenuItem onClick={closeMenuHandler}>Profile</MenuItem>
+                  <Link className={classes.linkNav} to ='/profile'><MenuItem onClick={closeMenuHandler}>Profile</MenuItem></Link>
                   <MenuItem onClick={logoutHandler}>Logout</MenuItem>
                 </Menu>
               </>)
