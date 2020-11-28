@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,6 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import Message from '../components/Message'
 import { Link } from 'react-router-dom'
 import Card from '@material-ui/core/Card';
+import {createOrder} from '../actions/orderActions'
 
 const useStyles = makeStyles((theme) => ({
     layout: {
@@ -48,17 +49,36 @@ const useStyles = makeStyles((theme) => ({
    
   }));
 
-const PlaceOrderScreen = () => {
+const PlaceOrderScreen = ({history}) => {
     const classes = useStyles();
     const cart = useSelector(state => state.cart)
+    const dispatch = useDispatch()
 
     cart.itemsPrice = cart.cartItems.reduce((acc,item)=> acc + item.price* item.qty, 0)
     cart.shippingPrice = cart.itemsPrice > 100 ? 0 : 20
     cart.taxPrice = Number((0.10 * cart.itemsPrice).toFixed(2))
     cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice
 
+    const orderCreate = useSelector(state => state.orderCreate)
+    const {order, success, error} = orderCreate
+
+    useEffect(() => {
+        if(success){
+            history.push(`/order/${order._id}`)
+        }
+        // eslint-disable-next-line
+    }, [history,success])
+
     const placeOrderHandler = () => {
-        console.log("Fired")
+        dispatch(createOrder({
+            orderItems: cart.cartItems,
+            shippingAddress: cart.shippingAddress,
+            paymentMethod: cart.paymentMethod,
+            itemsPrice: cart.itemsPrice,
+            shippingPrice: cart.shippingPrice,
+            taxPrice: cart.taxPrice,
+            totalPrice: cart.totalPrice,
+        }))
     }
     return (
         <main className={classes.layout}>
@@ -123,6 +143,9 @@ const PlaceOrderScreen = () => {
                                 <Grid item xs={12} md={6}>Total price:</Grid>
                                 <Grid item xs={12} md={6}>${cart.totalPrice}</Grid>
                             </Grid>
+                        </ListItem>
+                        <ListItem>
+                            {error && <Message error={error}/>}
                         </ListItem>
                         <ListItem>
                             <Button fullWidth variant="contained"
