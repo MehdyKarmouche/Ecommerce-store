@@ -10,6 +10,7 @@ const dotenv = require("dotenv").config();
 
 var productRouter = require('./routes/productRouter');
 var userRouter = require('./routes/userRouter');
+var orderRouter = require('./routes/orderRouter');
 
 
 var app = express();
@@ -28,6 +29,7 @@ app.use(cors())
 
 app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
+app.use('/api/orders', orderRouter);
 
 
 // catch 404 and forward to error handler
