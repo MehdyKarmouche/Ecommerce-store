@@ -4,7 +4,7 @@ const Order = require('../models/orderModel')
 //POST an ordered
 //Protected
 const addOrderItems = asynchHandler(async(req, res) => {
-    const {orderItems, shippingItems, paymentMethod, itemsPrice, texPrice,shippingPrice, totalPrice} = req.body
+    const {orderItems, shippingAddress, paymentMethod, itemsPrice, taxPrice,shippingPrice, totalPrice} = req.body
 
     if(orderItems && orderItems.length === 0){
         res.status(400)
@@ -15,15 +15,17 @@ const addOrderItems = asynchHandler(async(req, res) => {
         const order = new Order({
                 user: req.user._id,
                 orderItems,
-                shippingItems,
+                shippingAddress,
                 paymentMethod,
                 itemsPrice,
-                texPrice,
+                taxPrice,
                 shippingPrice,
                 totalPrice
             })
+            
             const createdOrder = await order.save()
             res.status(201).json(createdOrder)
+            
     }
 })
 
