@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
     link: {
         textDecoration:'none',
         color:'white'
+    },
+    table: {
+        marginTop:'12px'
     }
   }));
 
@@ -184,7 +187,7 @@ const ProfileScreen = ({location, history}) => {
             Your Orders
             </Typography>
             {loadingOrders ? <Loader/> : errorOrders ? <Message error={errorOrders}/> : (
-                <TableContainer component={Paper} >
+                <TableContainer className={classes.table} component={Paper} >
                     {console.log(orders)}
                     <TableHead>
                         <TableRow>
