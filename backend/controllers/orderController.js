@@ -13,8 +13,8 @@ const addOrderItems = asynchHandler(async(req, res) => {
     }
     else {
         const order = new Order({
-                user: req.user._id,
                 orderItems,
+                user: req.user._id,
                 shippingAddress,
                 paymentMethod,
                 itemsPrice,
@@ -29,7 +29,7 @@ const addOrderItems = asynchHandler(async(req, res) => {
     }
 })
 
-//POST an ordered
+//GET an ordered
 //Protected
 const getOrderById = asynchHandler(async(req, res) => {
     const order = await Order.findById(req.params.id).populate('user', 'name email')

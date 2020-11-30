@@ -33,6 +33,7 @@ export const createOrder = (order) => async (dispatch,getState) => {
 }
 
 export const getOrderDetails = (id) => async (dispatch,getState) => {
+    console.log('hit')
     try {
         dispatch({
             type: ORDER_DETAILS_REQUEST
@@ -45,14 +46,13 @@ export const getOrderDetails = (id) => async (dispatch,getState) => {
                 Authorization:`Bearer ${userInfo.token}`
             }
         }
-        const {data} = await axios.get(`/api/orders$(id)`, config)
+        const {data} = await axios.get(`/api/orders/${id}`, config)
         
-
+        localStorage.setItem('userInfo', JSON.stringify(userInfo))
         dispatch({
             type: ORDER_DETAILS_SUCCESS,
             payload: data
         })
-        localStorage.setItem('userInfo', JSON.stringify(data))
     } catch (error) {
         dispatch({
             type: ORDER_DETAILS_FAIL,
