@@ -4,11 +4,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import { Link } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -16,7 +13,16 @@ import Container from '@material-ui/core/Container';
 import Loader from '../components/Loader'
 import Success from '../components/Success'
 import Message from '../components/Message'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import {getUserDetails, updateUserProfile} from '../actions/userActions'
+import {listMyOrders} from '../actions/orderActions'
 import {USER_UPDATE_PROFILE_RESET} from '../constants/userConstants'
 
 const useStyles = makeStyles((theme) => ({
@@ -37,6 +43,10 @@ const useStyles = makeStyles((theme) => ({
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
+    link: {
+        textDecoration:'none',
+        color:'white'
+    }
   }));
 
 const ProfileScreen = ({location, history}) => {
@@ -58,13 +68,15 @@ const ProfileScreen = ({location, history}) => {
     const userUpdateProfile = useSelector(state => state.userUpdateProfile)
     const {success} = userUpdateProfile
 
+    const orderListMy = useSelector(state => state.orderListMy)
+    const {loading:loadingOrders,error:errorOrders, orders} = orderListMy
+
     
     const submitHandler = (e) => {
         e.preventDefault()
         if(password !== confirmPassword){
             setMessage('Passwords not matching')
         } else {
-            console.log("fired")
             dispatch(updateUserProfile({id:user._id, name, email, password}))
         }
         
@@ -75,9 +87,12 @@ const ProfileScreen = ({location, history}) => {
             history.push('/login')
         } else {
             if(!user.name ||success){
-                dispatch({type: USER_UPDATE_PROFILE_RESET})
+                //dispatch({type: USER_UPDATE_PROFILE_RESET})
                 dispatch(getUserDetails('profile'))
+                console.log("dispatched")
+                dispatch(listMyOrders())
             } else {
+                console.log("wahya")
                 setName(user.name)
                 setEmail(user.email)
             }
@@ -162,8 +177,40 @@ const ProfileScreen = ({location, history}) => {
         </div>
         </Container>
         </Grid>
-        <Grid item md={9}>
-            <h1>Orders</h1>
+        <Grid className={classes.paper} item md={9}>
+            <Avatar className={classes.avatar}>
+            <ShoppingBasketIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+            Your Orders
+            </Typography>
+            {loadingOrders ? <Loader/> : errorOrders ? <Message error={errorOrders}/> : (
+                <TableContainer component={Paper} >
+                    {console.log(orders)}
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>ID</TableCell>
+                            <TableCell >Date</TableCell>
+                            <TableCell >Total</TableCell>
+                            <TableCell >Paid</TableCell>
+                            <TableCell >Delivered</TableCell>
+                            <TableCell >Details</TableCell>
+                        </TableRow>
+                    </TableHead>
+                        <TableBody>
+                            {orders.map(order => (
+                                <TableRow key={order._id}>
+                                    <TableCell>{order._id}</TableCell>
+                                    <TableCell >{order.createdAt}</TableCell>
+                                    <TableCell >{order.totalPrice}</TableCell>
+                                    <TableCell >{order.isPaid ? (order.paymentResult.update_time.substring(0,10)) : <p>Not paid</p>} </TableCell>
+                                    <TableCell >{order.isDelivered ? order.deliveredAt.substring(0,10) : <p>Not Delivered</p>} </TableCell>
+                                    <TableCell><Link className={classes.link} to={`/order/${order._id}`}><Button variant="contained" color="primary">Details</Button></Link></TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                </TableContainer>
+            )}
         </Grid>
     </Grid>
   );
