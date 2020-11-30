@@ -61,8 +61,9 @@ const OrderScreen = ({match}) => {
         order.itemsPrice = order.orderItems.reduce((acc,item)=> acc + item.price* item.qty, 0)
 
     useEffect(() => {
+        if(!order || order._id!== orderId)
         dispatch(getOrderDetails(orderId))
-    }, [dispatch,orderId, match])
+    }, [dispatch,order,orderId, match])
 
     return loading ? <Loader/> : error ? <Message error={error}/> : (
         <main className={classes.layout}>
