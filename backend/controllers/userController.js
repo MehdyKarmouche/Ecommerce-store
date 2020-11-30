@@ -94,7 +94,16 @@ const updateUserProfile = asynchHandler(async(req, res) => {
     }
 })
 
+//GET all users
+//protected, for admin only
+const getUsers = asynchHandler(async(req, res) => {
+    const users = await User.find({})
+    res.json(users)
+
+    
+})
 
 
 
-module.exports = {authUser, getUserProfile, registerUser, updateUserProfile}
+
+module.exports = {authUser, getUserProfile, registerUser, updateUserProfile, getUsers}
