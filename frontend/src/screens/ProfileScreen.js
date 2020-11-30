@@ -87,12 +87,11 @@ const ProfileScreen = ({location, history}) => {
             history.push('/login')
         } else {
             if(!user.name ||success){
-                //dispatch({type: USER_UPDATE_PROFILE_RESET})
+                dispatch({type: USER_UPDATE_PROFILE_RESET})
                 dispatch(getUserDetails('profile'))
-                console.log("dispatched")
                 dispatch(listMyOrders())
             } else {
-                console.log("wahya")
+                
                 setName(user.name)
                 setEmail(user.email)
             }
