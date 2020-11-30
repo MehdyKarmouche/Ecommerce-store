@@ -77,11 +77,12 @@ const OrderScreen = ({match}) => {
                     {order.shippingAddress.postalCode}, {' '}
                     {order.shippingAddress.country}
                     </p>
+                    {order.isDelivered ? <Success success={'Delivered'}/> : <p>Not delivered yet</p>}
                 
                 <Typography variant="h5"><strong>Payment Method</strong></Typography>
                     <p>{order.paymentMethod}
                     </p>
-                    {order.isPaid ? <Success/> : <p>Not paid yet</p>}
+                    {order.isPaid ? <Success success={'Paid'}/> : <p>Not paid yet</p>}
                 <Typography variant="h5"><strong>Order Items</strong></Typography>
                     <List>
                         {order.orderItems.map((item,index) => (
