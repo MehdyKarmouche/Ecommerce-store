@@ -64,7 +64,14 @@ const updateOrderToPaid = asynchHandler(async(req, res) => {
     }
 })
 
+//GET user orders 
+//Protected
+const getMyOrders = asynchHandler(async(req, res) => {
+    const orders = await Order.find({user:req.user._id})
+    res.json(orders)
+})
+
 
 module.exports = {
-    addOrderItems, getOrderById, updateOrderToPaid
+    addOrderItems, getOrderById, updateOrderToPaid, getMyOrders
 }
