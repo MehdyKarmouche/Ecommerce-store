@@ -103,7 +103,22 @@ const getUsers = asynchHandler(async(req, res) => {
     
 })
 
+//DELETE a user
+//protected, for admin only
+const deleteUser = asynchHandler(async(req, res) => {
+    const user = await User.findById(req.params.id)
+    if(user){
+        await user.remove()
+        res.json({message:'user deleted'})
+    } else {
+        res.status(404)
+        throw new Error('User not Found')
+    }
+
+    
+})
 
 
 
-module.exports = {authUser, getUserProfile, registerUser, updateUserProfile, getUsers}
+
+module.exports = {authUser, getUserProfile, registerUser, updateUserProfile, getUsers, deleteUser}
