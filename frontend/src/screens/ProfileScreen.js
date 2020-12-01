@@ -170,7 +170,7 @@ const ProfileScreen = ({location, history}) => {
                 type="submit"
                 fullWidth
                 variant="contained"
-                color="primary"
+                color="secondary"
                 className={classes.submit}
             >
                 Update Profile
@@ -207,7 +207,7 @@ const ProfileScreen = ({location, history}) => {
                                     <TableCell >{order.totalPrice}</TableCell>
                                     <TableCell >{order.isPaid ? (order.paymentResult.update_time.substring(0,10)) : <p>Not paid</p>} </TableCell>
                                     <TableCell >{order.isDelivered ? order.deliveredAt.substring(0,10) : <p>Not Delivered</p>} </TableCell>
-                                    <TableCell><Link className={classes.link} to={`/order/${order._id}`}><Button variant="contained" color="primary">Details</Button></Link></TableCell>
+                                    <TableCell><Link className={classes.link} to={`/order/${order._id}`}><Button variant="contained" color="secondary">Details</Button></Link></TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
