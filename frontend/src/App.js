@@ -13,6 +13,7 @@ import ShippingScreen from './screens/ShippingScreen'
 import PaymentScreen from './screens/PaymentScreen'
 import PlaceOrderScreen from './screens/PlaceOrderScreen'
 import OrderScreen from './screens/OrderScreen'
+import UserListScreen from './screens/UserListScreen'
 import { createMuiTheme, MuiThemeProvider, ThemeProvider,makeStyles } from '@material-ui/core/styles';
 import {blueGrey, deepPurple,grey, teal} from '@material-ui/core/colors'
 
@@ -38,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
   return (
-    <MuiThemeProvider  theme={theme}>
-    <main className={classes.container}>
+    
+    <main>
     <Router>
       <Header/>
         
@@ -54,13 +55,14 @@ function App() {
           <Route path='/profile' component={ProfileScreen}/>
           <Route path='/product/:id' component={ProductScreen}/>
           <Route path='/cart/:id?' component={CartScreen}/>
+          <Route path='/admin/userlist' component={UserListScreen}/>
           <Route path='/' component={HomeScreen} exact/>
           </Container>
         
       <Footer/>
     </Router>
     </main>
-    </MuiThemeProvider>
+    
   );
 }
 

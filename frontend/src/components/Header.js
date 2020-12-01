@@ -82,6 +82,24 @@ const Header = () => {
               </Link>
             </Button>
             }
+            {userInfo && userInfo.isAdmin && (
+              <>
+              <Button color="inherit" aria-controls="simple-menu" aria-haspopup="true" onClick={openMenuHandler}>
+                Admin<ArrowDropDownIcon/>
+              </Button>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={closeMenuHandler}
+              >
+                <Link className={classes.linkNav} to ='/admin/userlist'><MenuItem onClick={closeMenuHandler}>Users</MenuItem></Link>
+                <Link className={classes.linkNav} to ='/admin/productlist'><MenuItem onClick={closeMenuHandler}>Products</MenuItem></Link>
+                <Link className={classes.linkNav} to ='/admin/orderlist'><MenuItem onClick={closeMenuHandler}>Orders</MenuItem></Link>
+              </Menu>
+            </>
+            )}
               <Button color="inherit">
                 <Link className={classes.link} to ='/cart'>
                   Cart
