@@ -74,7 +74,7 @@ const UserListScreen = ({history}) => {
                             <TableCell><a href={`mailto:${user.email}`}>{user.email}</a></TableCell>
                             <TableCell>{user.isAdmin ? (<p>Admin</p>) : (<p>Not admin</p>)}</TableCell>
                             <TableCell>
-                                <Link to={`/user/${user._id}/edit`}>
+                                <Link to={`/admin/user/${user._id}/edit`}>
                                     <Button variaant="contained" color="secondary">Edit</Button>
                                 </Link>
                                 <Button onClick={()=>deleteHandler(user._id)} variant="danger">Del</Button>
