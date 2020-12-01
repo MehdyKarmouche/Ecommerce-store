@@ -119,6 +119,45 @@ const deleteUser = asynchHandler(async(req, res) => {
 })
 
 
+//GET a user by ID
+//protected, for admin only
+const getUserById = asynchHandler(async(req, res) => {
+    const user = await User.findById(req.params.id).select('-password')
+    if(user){
+        res.json(user)
+    } else {
+        res.status(404)
+        throw new Error('User not found')
+    }
+
+    
+})
+
+// update user
+//put request for admin only
+const updateUser = asynchHandler(async(req, res) => {
+    console.log("wahya")
+    const user = await User.findById(req.params.id)
+
+    if(user){
+        user.name = req.body.name || user.name
+        user.email = req.body.email || user.email
+        user.isAdmin = req.body.isAdmin
+        const updatedUser = await user.save()
+        res.json({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            isAdmin: updatedUser.isAdmin
+        })
+    } else {
+        res.status(404)
+        throw new Error("User Not found")
+    }
+})
 
 
-module.exports = {authUser, getUserProfile, registerUser, updateUserProfile, getUsers, deleteUser}
+
+
+
+module.exports = {authUser, getUserProfile, registerUser, updateUserProfile, getUsers, deleteUser, getUserById,updateUser}
