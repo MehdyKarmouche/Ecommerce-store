@@ -15,7 +15,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import {getUserDetails} from '../actions/userActions'
+import {getUserDetails, updateUser} from '../actions/userActions'
+import {USER_UPDATE_RESET} from '../constants/userConstants'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -49,21 +50,31 @@ const UserEditScreen = ({match, history}) => {
     const userDetails = useSelector(state => state.userDetails)
     const {loading,error,user} = userDetails
 
+    const userUpdate = useSelector(state => state.userUpdate)
+    const {loading:loadingUpdate,error:errorUpdate, success:successUpdate} = userUpdate
+
     
-    const submitHandler = (e) => {
-        e.preventDefault()
-        
-    }
     useEffect(() => {
-        if(!user.name || user._id !==userId){
-            dispatch(getUserDetails(userId))
-        } else {
-            setName(user.name)
-            setEmail(user.email)
-            setIsAdmin(user.isAdmin)
+        if(successUpdate){
+            dispatch({type:USER_UPDATE_RESET})
+            history.push('/admin/userlist')
+        }
+        else {
+            if(!user.name || user._id !==userId){
+                dispatch(getUserDetails(userId))
+            } else {
+                setName(user.name)
+                setEmail(user.email)
+                setIsAdmin(user.isAdmin)
+            }
         }
 
-    },[user,dispatch, userId])
+    },[user,dispatch, userId, successUpdate, history])
+
+    const submitHandler = (e) => {
+        e.preventDefault()
+        dispatch(updateUser({_id:userId, name, email, isAdmin}))
+    }
 
   return (
       <>
@@ -77,6 +88,8 @@ const UserEditScreen = ({match, history}) => {
         <Typography component="h1" variant="h5">
           Edit User
         </Typography>
+        {loadingUpdate && <Loader/>}
+        {errorUpdate && <Message error={errorUpdate}/>}
         {loading ? <Loader/> : error ? <Message error={error}/> : (
             <form onSubmit={submitHandler} className={classes.form} noValidate>
             <TextField
