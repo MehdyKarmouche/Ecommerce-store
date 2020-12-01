@@ -26,16 +26,25 @@ const useStyles = makeStyles((theme) => ({
     
   }));
 
-const UserListScreen = () => {
+const UserListScreen = ({history}) => {
     const classes = useStyles();
     const dispatch = useDispatch()
     const userList = useSelector(state => state.userList)
     const {loading, error, users} = userList
 
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
+
 
     useEffect(() => {
-        dispatch(listUsers())
-    }, [dispatch])
+        if(userInfo && userInfo.isAdmin){
+            dispatch(listUsers())
+        }
+        else {
+            dispatch(listUsers())
+            history.push('/')
+        }
+    }, [dispatch, history, userInfo])
 
     const deleteHandler = (id) => {
         console.log("wahya")
@@ -43,7 +52,7 @@ const UserListScreen = () => {
     return (
         <>
          <h1>Users</h1>
-         {loading ? <Loader/> : error ? <Message error={error}/> :(
+         {loading ? <Loader/> : error ? <Message error={error}/> : !userInfo ? <Message error={"You have to be an Admin to access this resource"}/> : (
              <TableContainer className={classes.container}>
                  <TableHead>
                      <TableRow>

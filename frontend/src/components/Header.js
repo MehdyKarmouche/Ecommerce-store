@@ -39,6 +39,7 @@ const Header = () => {
     const {userInfo} = userLogin
     const dispatch = useDispatch()
     const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorEl2, setAnchorEl2] = useState(null);
     const logoutHandler = () => {
       closeMenuHandler()
       dispatch(logout())
@@ -47,9 +48,16 @@ const Header = () => {
     const openMenuHandler = (event) => {
       setAnchorEl(event.currentTarget)
     }
+    const openMenuHandler2 = (event) => {
+      setAnchorEl2(event.currentTarget)
+    }
 
     const closeMenuHandler = () => {
       setAnchorEl(null)
+    }
+
+    const closeMenuHandler2 = () => {
+      setAnchorEl2(null)
     }
     
     return (
@@ -84,19 +92,19 @@ const Header = () => {
             }
             {userInfo && userInfo.isAdmin && (
               <>
-              <Button color="inherit" aria-controls="simple-menu" aria-haspopup="true" onClick={openMenuHandler}>
+              <Button color="inherit" aria-controls="simple-menu" aria-haspopup="true" onClick={openMenuHandler2}>
                 Admin<ArrowDropDownIcon/>
               </Button>
               <Menu
                 id="simple-menu"
-                anchorEl={anchorEl}
+                anchorEl={anchorEl2}
                 keepMounted
-                open={Boolean(anchorEl)}
-                onClose={closeMenuHandler}
+                open={Boolean(anchorEl2)}
+                onClose={closeMenuHandler2}
               >
-                <Link className={classes.linkNav} to ='/admin/userlist'><MenuItem onClick={closeMenuHandler}>Users</MenuItem></Link>
-                <Link className={classes.linkNav} to ='/admin/productlist'><MenuItem onClick={closeMenuHandler}>Products</MenuItem></Link>
-                <Link className={classes.linkNav} to ='/admin/orderlist'><MenuItem onClick={closeMenuHandler}>Orders</MenuItem></Link>
+                <Link className={classes.linkNav} to ='/admin/userlist'><MenuItem onClick={closeMenuHandler2}>Users</MenuItem></Link>
+                <Link className={classes.linkNav} to ='/admin/productlist'><MenuItem onClick={closeMenuHandler2}>Products</MenuItem></Link>
+                <Link className={classes.linkNav} to ='/admin/orderlist'><MenuItem onClick={closeMenuHandler2}>Orders</MenuItem></Link>
               </Menu>
             </>
             )}
