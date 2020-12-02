@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
-import {listProducts, deleteProduct} from '../actions/productActions'
+import {listProducts, deleteProduct, createProduct} from '../actions/productActions'
+import { PRODUCT_CREATE_RESET} from '../constants/productConstants'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import TableBody from '@material-ui/core/TableBody';
@@ -35,19 +36,25 @@ const ProductListScreen = ({history, match}) => {
     const productDelete = useSelector(state => state.productDelete)
     const {loading:loadingDelete, error:errorDelete, success:successDelete} = productDelete
 
+    const productCreate = useSelector(state => state.productCreate)
+    const {loading:loadingCreate, error:errorCreate, success:successCreate, product:createdProduct} = productCreate
+
     const userLogin = useSelector(state => state.userLogin)
     const {userInfo} = userLogin
 
 
 
     useEffect(() => {
-        if(userInfo && userInfo.isAdmin){
-            dispatch(listProducts())
-        }
-        else {
+        dispatch({type: PRODUCT_CREATE_RESET})
+        if(!userInfo.isAdmin){
             history.push('/login')
         }
-    }, [dispatch, history, userInfo, successDelete])
+        if(successCreate){
+            history.push(`/admin/product/${createdProduct._id}/edit`)
+        } else {
+            dispatch(listProducts())
+        }
+    }, [dispatch, history, userInfo, successDelete, successCreate, createdProduct])
 
     const deleteHandler = (id) => {
         //Delete product dispqatch
@@ -55,14 +62,16 @@ const ProductListScreen = ({history, match}) => {
     }
 
     const createProductHandler = () => {
-        //
+        dispatch(createProduct())
     }
     return (
         <>
          <h1>Users</h1>
-         <Button onClick={createProductHandler} variant="contained" color="secondary">Add Product </Button>
+         <Button onClick={createProductHandler} variant="contained" color="secondary">Add Products </Button>
          {loadingDelete && <Loader/>}
          {errorDelete && <Message error={errorDelete}/>}
+         {loadingCreate && <Loader/>}
+         {errorCreate && <Message error={errorCreate}/>}
          {loading ? <Loader/> : error ? <Message error={error}/> : !userInfo ? <Message error={"You have to be an Admin to access this resource"}/> : (
              <TableContainer className={classes.container}>
                  <TableHead>
