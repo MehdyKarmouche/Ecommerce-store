@@ -80,7 +80,6 @@ export const getUserDetails = (id) => async (dispatch,getState) => {
 
         const config = {
             headers: {
-                'Content-Type':'application/json',
                 Authorization:`Bearer ${userInfo.token}`
             }
         }
@@ -220,6 +219,8 @@ export const updateUser = (user) => async (dispatch,getState) => {
             type: USER_DETAILS_SUCCESS,
             payload: data
         })
+
+        dispatch({ type: USER_DETAILS_RESET })
         
     } catch (error) {
         dispatch({
