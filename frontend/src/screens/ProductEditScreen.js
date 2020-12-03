@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 import {useDispatch, useSelector} from 'react-redux'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -47,6 +48,7 @@ const ProductEditScreen = ({match, history}) => {
     const [category, setCategory] = useState('')
     const [countInStock, setCountInStock] = useState(0)
     const [description, setDescription] = useState('')
+    const [uploading, setUploading] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -76,6 +78,7 @@ const ProductEditScreen = ({match, history}) => {
             
 
     },[dispatch, history, productId, product, successUpdate])
+
 
     const submitHandler = (e) => {
         e.preventDefault()
@@ -142,6 +145,7 @@ const ProductEditScreen = ({match, history}) => {
               autoFocus
               onChange={(e) => setImage(e.target.value)}
             />
+            {uploading && <Loader/>}
             <TextField
               variant="outlined"
               margin="normal"
