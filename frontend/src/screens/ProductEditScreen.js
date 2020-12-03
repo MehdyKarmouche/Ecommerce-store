@@ -13,8 +13,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import {listProductDetails} from '../actions/productActions'
+import {listProductDetails, updateProduct} from '../actions/productActions'
 import {USER_UPDATE_RESET} from '../constants/userConstants'
+import { PRODUCT_UPDATE_RESET } from '../constants/productConstants';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -52,11 +53,15 @@ const ProductEditScreen = ({match, history}) => {
     const productDetails = useSelector(state => state.productDetails)
     const {loading, error, product} = productDetails
 
-
+    const productUpdate = useSelector(state => state.productUpdate)
+    const {loading:loadingUpdate, error:errorUpdate, success:successUpdate} = productUpdate
     
     useEffect(() => {
-        
-            if(!product.name || product._id !==productId){
+            if(successUpdate){
+              dispatch({type:PRODUCT_UPDATE_RESET})
+              history.push('/admin/productlist')
+            } else {
+              if(!product.name || product._id !==productId){
                 dispatch(listProductDetails(productId))
             } else {
                 setName(product.name)
@@ -67,12 +72,23 @@ const ProductEditScreen = ({match, history}) => {
                 setCountInStock(product.countInStock)
                 setDescription(product.description)
             }
+            }
+            
 
-    },[dispatch, history, productId, product])
+    },[dispatch, history, productId, product, successUpdate])
 
     const submitHandler = (e) => {
         e.preventDefault()
-       //update product
+       dispatch(updateProduct({
+         _id: productId,
+         name,
+         price,
+         image,
+         brand,
+         category,
+         description,
+         countInStock
+       }))
     }
 
   return (
@@ -87,6 +103,8 @@ const ProductEditScreen = ({match, history}) => {
         <Typography component="h1" variant="h5">
           Edit Product
         </Typography>
+        {loadingUpdate && <Loader/>}
+        {errorUpdate && <Message error={errorUpdate}/>}
         {loading ? <Loader/> : error ? <Message error={error}/> : (
             <form onSubmit={submitHandler} className={classes.form} noValidate>
             <TextField
