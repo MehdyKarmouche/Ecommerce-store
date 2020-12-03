@@ -11,6 +11,7 @@ const dotenv = require("dotenv").config();
 var productRouter = require('./routes/productRouter');
 var userRouter = require('./routes/userRouter');
 var orderRouter = require('./routes/orderRouter');
+var uploadRouter = require('./routes/uploadRouter')
 
 
 var app = express();
@@ -30,10 +31,14 @@ app.use(cors())
 app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
+app.use('/api/upload', uploadRouter)
 
 app.get('/api/config/paypal',(req,res) => {
   res.send(process.env.PAYPAL_CLIENT_ID)
 })
+
+
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 
 // catch 404 and forward to error handler
