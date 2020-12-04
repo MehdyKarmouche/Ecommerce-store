@@ -72,6 +72,14 @@ const getMyOrders = asynchHandler(async(req, res) => {
 })
 
 
+//GET all orders for admin
+//Protected
+const getOrders = asynchHandler(async(req, res) => {
+    const orders = await Order.find({}).populate('user', 'id name')
+    res.json(orders)
+})
+
+
 module.exports = {
-    addOrderItems, getOrderById, updateOrderToPaid, getMyOrders
+    addOrderItems, getOrderById, updateOrderToPaid, getMyOrders, getOrders
 }
