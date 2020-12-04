@@ -15,8 +15,8 @@ import Message from '../components/Message'
 import Success from '../components/Success'
 import { Link } from 'react-router-dom'
 import Card from '@material-ui/core/Card';
-import {getOrderDetails, payOrder} from '../actions/orderActions'
-import {ORDER_PAY_RESET} from '../constants/orderConstants' 
+import {getOrderDetails, payOrder, deliverOrder} from '../actions/orderActions'
+import {ORDER_PAY_RESET, ORDER_DELIVER_RESET} from '../constants/orderConstants' 
 
 const useStyles = makeStyles((theme) => ({
     layout: {
@@ -63,6 +63,12 @@ const OrderScreen = ({match}) => {
 
     const orderPay = useSelector(state => state.orderPay)
     const {loading:loadingPay, success:successPay} = orderPay
+
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
+
+    const orderDeliver = useSelector(state => state.orderDeliver)
+    const {loading:loadingDeliver, success:successDeliver} = orderDeliver
     
     if(!loading)
         order.itemsPrice = order.orderItems.reduce((acc,item)=> acc + item.price* item.qty, 0)
@@ -80,8 +86,9 @@ const OrderScreen = ({match}) => {
             document.body.appendChild(script)
         }
         
-        if(!order || successPay || order._id!== orderId){
+        if(!order || successPay || order._id!== orderId || successDeliver){
             dispatch({type:ORDER_PAY_RESET})
+            dispatch({type:ORDER_DELIVER_RESET})
             dispatch(getOrderDetails(orderId))
         }
         else if(!order.isPaid) {
@@ -92,10 +99,13 @@ const OrderScreen = ({match}) => {
                 setSdkReady(true)
             }
         }
-    }, [dispatch,order,orderId, match, successPay])
+    }, [dispatch,order,orderId, match, successPay, successDeliver])
 
     const successPaymentHandler = (paymentResult) => {
         dispatch(payOrder(orderId,paymentResult))
+    }
+    const deliverHandler = () => {
+        dispatch(deliverOrder(order))
     }
 
     return loading ? <Loader/> : error ? <Message error={error}/> : (
@@ -173,6 +183,12 @@ const OrderScreen = ({match}) => {
                                     <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler}/>
                                 )}
                             </>
+                        )}
+                        {loadingDeliver && <Loader/>}
+                        {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                            <ListItem>
+                                <Button variant="contained" color="secondary" onClick={deliverHandler}>Mark as Delivered</Button>
+                            </ListItem>
                         )}
                         <ListItem>
                             {error && <Message error={error}/>}
