@@ -10,7 +10,7 @@ function Copyright() {
       <Typography variant="body2" color="textSecondary">
         {'Copyright © '}
         <Link to='/' color="inherit">
-          E-Commerce.com
+          UrbanExploration.com
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}
@@ -21,7 +21,7 @@ function Copyright() {
     root: {
       display: 'flex',
       flexDirection: 'column',
-      minHeight: '100vh',
+      minHeight: '50vh',
       alignItems:'center'
     },
     footer: {
@@ -38,7 +38,6 @@ const Footer = () => {
         
         <footer className={classes.footer}>
           <Container maxWidth="sm">
-            <Typography variant="body1">Sticky footer can be found here.</Typography>
             <Copyright />
           </Container>
         </footer>
