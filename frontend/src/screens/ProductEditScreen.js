@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Link } from 'react-router-dom'
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -36,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
+    link: {
+      textDecoration:"none"
+    }
   }));
 
 const ProductEditScreen = ({match, history}) => {
@@ -96,12 +100,12 @@ const ProductEditScreen = ({match, history}) => {
 
   return (
       <>
-      <Link to="/admin/productlist"><Button variant="contained" color="secondary">Back</Button></Link>
+      <Link className={classes.link} to="/admin/productlist"><Button variant="contained" color="secondary">Back</Button></Link>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <ShoppingBasketIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Edit Product

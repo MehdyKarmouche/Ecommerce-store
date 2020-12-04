@@ -115,9 +115,9 @@ const OrderScreen = ({match, history}) => {
         <main className={classes.layout}>
             
         <Paper className={classes.paper}>
-        <h1>Order</h1>
+            <h1>Order</h1>
             <p><strong>Name:</strong>{order.user.name}</p>
-            <strong>Email:</strong><a href={`mailto:${order.user.email}`}>{order.user.email}</a>
+            <strong>Email:</strong><a className={classes.link} href={`mailto:${order.user.email}`}>{order.user.email}</a>
         <Grid container spacing = {3}>
             <Grid item xs={12} md={8}>
                 <Typography variant="h5"><strong>Address</strong></Typography>

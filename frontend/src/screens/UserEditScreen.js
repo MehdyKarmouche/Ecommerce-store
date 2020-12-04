@@ -11,6 +11,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import {getUserDetails, updateUser} from '../actions/userActions'
@@ -34,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
+    link:{
+      textDecoration:"none"
+    }
   }));
 
 const UserEditScreen = ({match, history}) => {
@@ -76,12 +80,12 @@ const UserEditScreen = ({match, history}) => {
 
   return (
       <>
-      <Link to="/admin/userlist"><Button variant="contained" color="secondary">Back</Button></Link>
+      <Link className={classes.link} to="/admin/userlist"><Button variant="contained" color="secondary">Back</Button></Link>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <AccountCircleIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Edit User

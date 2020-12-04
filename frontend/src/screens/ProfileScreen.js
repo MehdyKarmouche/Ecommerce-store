@@ -16,6 +16,7 @@ import Message from '../components/Message'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
@@ -109,7 +110,7 @@ const ProfileScreen = ({location, history}) => {
         <CssBaseline />
         <div className={classes.paper}>
             <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+            <AccountCircleIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
             Your Profile
