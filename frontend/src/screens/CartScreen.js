@@ -117,7 +117,7 @@ const CartScreen = ({match, location, history}) => {
                     <Typography className={classes.price} variant="body2">${item.price}</Typography>
                 </Grid>
                 <Grid item md={2}>
-                    <Button onClick = {() => removeFromCartHanlder(item.product)}><DeleteIcon color="primary"/></Button>
+                    <Button onClick = {() => removeFromCartHanlder(item.product)}><DeleteIcon color="secondary"/></Button>
                 </Grid>
           </ListItem>
           </Grid>
@@ -135,7 +135,7 @@ const CartScreen = ({match, location, history}) => {
           </Typography>
         </ListItem>
       </List>
-      <Button disabled={cartItems.length === 0} onClick={checkoutHandler} variant="contained" color="primary" className={classes.button}>Proceed to checkout</Button>
+      <Button disabled={cartItems.length === 0} onClick={checkoutHandler} variant="contained" color="secondary" className={classes.button}>Proceed to checkout</Button>
      </Paper>
      
      </main>

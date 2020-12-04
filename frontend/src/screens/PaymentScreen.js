@@ -94,7 +94,7 @@ const PaymentScreen = ({history}) => {
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
+            color="secondary"
           >
             Continue
           </Button>

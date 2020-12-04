@@ -68,7 +68,7 @@ const ProductScreen = ({match, history}) => {
 
             <Container>
             <Link className={classes.link} to='/'>
-                <Button className={classes.button} variant="contained" color="primary">
+                <Button className={classes.button} variant="contained" color="secondary">
                     Back
                 </Button>
             </Link>
@@ -139,7 +139,7 @@ const ProductScreen = ({match, history}) => {
                         </ListItem>
                     </CardContent>
                 <CardActions className={classes.cartButton}>
-                    <Button onClick={addToCartHanlder} color="primary" variant="contained" size="medium" disabled={product.countInStock===0}>ADD TO CART</Button>
+                    <Button onClick={addToCartHanlder} color="secondary" variant="contained" size="medium" disabled={product.countInStock===0}>ADD TO CART</Button>
                 </CardActions>
                 </List>
                 </Card>

@@ -66,7 +66,7 @@ const Header = () => {
               <Toolbar>
               <Typography variant="h6" className={classes.title}>
                 <Link className={classes.link} to ='/'>
-                    E-Commerce
+                    UrbeX
                 </Link>
               </Typography>
               {userInfo ? (<>

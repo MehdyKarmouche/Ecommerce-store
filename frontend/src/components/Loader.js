@@ -23,7 +23,7 @@ const Loader = () => {
     const classes = useStyles()
     return (
         <div className={classes.root}>
-            <CircularProgress className={classes.spinner} />
+            <CircularProgress color="secondary" className={classes.spinner} />
         </div>
     )
 }

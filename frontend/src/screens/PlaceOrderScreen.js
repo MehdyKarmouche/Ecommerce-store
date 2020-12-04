@@ -149,7 +149,7 @@ const PlaceOrderScreen = ({history}) => {
                         </ListItem>
                         <ListItem>
                             <Button fullWidth variant="contained"
-                             color="primary"
+                             color="secondary"
                              disabled={cart.cartItems.length === 0}
                             onClick={placeOrderHandler}>Order</Button>
                         </ListItem>
