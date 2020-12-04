@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
    
   }));
 
-const OrderScreen = ({match}) => {
+const OrderScreen = ({match, history}) => {
     const classes = useStyles();
     const [sdkReady, setSdkReady] = useState(false)
     const orderId = match.params.id
@@ -74,6 +74,9 @@ const OrderScreen = ({match}) => {
         order.itemsPrice = order.orderItems.reduce((acc,item)=> acc + item.price* item.qty, 0)
 
     useEffect(() => {
+        if(!userInfo){
+            history.push('/login')
+        }
         const addPayPalScript = async() => {
             const {data:clientId} = await axios.get('/api/config/paypal')
             const script = document.createElement('script')
@@ -185,7 +188,7 @@ const OrderScreen = ({match}) => {
                             </>
                         )}
                         {loadingDeliver && <Loader/>}
-                        {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                        {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
                             <ListItem>
                                 <Button variant="contained" color="secondary" onClick={deliverHandler}>Mark as Delivered</Button>
                             </ListItem>
