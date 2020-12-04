@@ -54,16 +54,18 @@ const UserListScreen = ({history}) => {
     }
     return (
         <>
-         <h1>Users</h1>
+         
          {loading ? <Loader/> : error ? <Message error={error}/> : !userInfo ? <Message error={"You have to be an Admin to access this resource"}/> : (
              <TableContainer className={classes.container}>
+                 <h1>Users</h1>
                  <TableHead>
                      <TableRow>
                          <TableCell>ID</TableCell>
                          <TableCell>NAME</TableCell>
                          <TableCell>EMAIL</TableCell>
                          <TableCell>Admin</TableCell>
-                         <TableCell>Edit</TableCell>
+                         <TableCell>EDIT</TableCell>
+                         <TableCell>DELETE</TableCell>
                      </TableRow>
                  </TableHead>
                  <TableBody>
@@ -77,6 +79,8 @@ const UserListScreen = ({history}) => {
                                 <Link to={`/admin/user/${user._id}/edit`}>
                                     <Button variaant="contained" color="secondary">Edit</Button>
                                 </Link>
+                            </TableCell>
+                            <TableCell>
                                 <Button onClick={()=>deleteHandler(user._id)} variant="danger">Del</Button>
                             </TableCell>
                          </TableRow>

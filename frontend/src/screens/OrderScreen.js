@@ -113,10 +113,11 @@ const OrderScreen = ({match, history}) => {
 
     return loading ? <Loader/> : error ? <Message error={error}/> : (
         <main className={classes.layout}>
-            <h1>Order</h1>
+            
+        <Paper className={classes.paper}>
+        <h1>Order</h1>
             <p><strong>Name:</strong>{order.user.name}</p>
             <strong>Email:</strong><a href={`mailto:${order.user.email}`}>{order.user.email}</a>
-        <Paper className={classes.paper}>
         <Grid container spacing = {3}>
             <Grid item xs={12} md={8}>
                 <Typography variant="h5"><strong>Address</strong></Typography>

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
         width: 'auto',
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2),
-        [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+        [theme.breakpoints.up(600 + theme.spacing(0) * 2)]: {
           width: 800,
           marginLeft: 'auto',
           marginRight: 'auto',
@@ -66,15 +66,18 @@ const ProductListScreen = ({history, match}) => {
     }
     return (
         <>
-         <h1>Users</h1>
-         <Button onClick={createProductHandler} variant="contained" color="secondary">Add Products </Button>
+         
          {loadingDelete && <Loader/>}
          {errorDelete && <Message error={errorDelete}/>}
          {loadingCreate && <Loader/>}
          {errorCreate && <Message error={errorCreate}/>}
          {loading ? <Loader/> : error ? <Message error={error}/> : !userInfo ? <Message error={"You have to be an Admin to access this resource"}/> : (
+             
              <TableContainer className={classes.container}>
+                 
                  <TableHead>
+                 <h1>Products</h1>
+                 <Button onClick={createProductHandler} variant="contained" color="secondary">Add Products </Button>
                      <TableRow>
                          <TableCell>ID</TableCell>
                          <TableCell>NAME</TableCell>

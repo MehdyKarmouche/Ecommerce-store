@@ -48,9 +48,10 @@ const OrderListScreen = ({history}) => {
 
     return (
         <>
-         <h1>Orders</h1>
+         
          {loading ? <Loader/> : error ? <Message error={error}/> : !userInfo ? <Message error={"You have to be an Admin to access this resource"}/> : (
              <TableContainer className={classes.container}>
+                 <h1>Orders</h1>
                  <TableHead>
                      <TableRow>
                          <TableCell>ID</TableCell>
@@ -64,7 +65,6 @@ const OrderListScreen = ({history}) => {
                  <TableBody>
                      {orders.map(order => (
                          <TableRow key={order._id}>
-                             {console.log(order)}
                             <TableCell>{order._id}</TableCell>
                             <TableCell>{order.user && order.user.name}</TableCell>
                             <TableCell>{order.createdAt.substring(0, 10)}</TableCell>
