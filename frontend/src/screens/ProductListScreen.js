@@ -12,6 +12,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -84,6 +86,8 @@ const ProductListScreen = ({history, match}) => {
                          <TableCell>PRICE</TableCell>
                          <TableCell>CATEGORY</TableCell>
                          <TableCell>BRAND</TableCell>
+                         <TableCell>EDIT</TableCell>
+                         <TableCell>DELETE</TableCell>
                      </TableRow>
                  </TableHead>
                  <TableBody>
@@ -96,9 +100,11 @@ const ProductListScreen = ({history, match}) => {
                             <TableCell>{product.brand}</TableCell>
                             <TableCell>
                                 <Link to={`/admin/product/${product._id}/edit`}>
-                                    <Button variant="contained" color="secondary">Edit</Button>
+                                    <Button><EditIcon color="secondary"/></Button>
                                 </Link>
-                                <Button onClick={()=>deleteHandler(product._id)} variant="danger">Del</Button>
+                            </TableCell>
+                            <TableCell>
+                                 <Button onClick={()=>deleteHandler(product._id)} variant="danger"><DeleteIcon color="secondary"/></Button>
                             </TableCell>
                          </TableRow>
                      ))}

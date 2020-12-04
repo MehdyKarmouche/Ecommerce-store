@@ -11,6 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2),
         [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-          width: 800,
+          width: 950,
           marginLeft: 'auto',
           marginRight: 'auto',
         },
@@ -60,6 +61,7 @@ const OrderListScreen = ({history}) => {
                          <TableCell>TOTAL PRICE</TableCell>
                          <TableCell>PAID</TableCell>
                          <TableCell>DELIVERED</TableCell>
+                         <TableCell>DETAILS</TableCell>
                      </TableRow>
                  </TableHead>
                  <TableBody>
@@ -73,7 +75,7 @@ const OrderListScreen = ({history}) => {
                             <TableCell>{order.isDelivered ? (order.deliveredAt.substring(0, 10)) : (<p>Not Delivered</p>)}</TableCell>
                             <TableCell>
                                 <Link to={`/order/${order._id}`}>
-                                    <Button variaant="contained" color="secondary">Details</Button>
+                                    <Button><VisibilityIcon color="secondary"/></Button>
                                 </Link>
                             </TableCell>
                          </TableRow>
