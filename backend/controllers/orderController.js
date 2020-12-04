@@ -80,6 +80,24 @@ const getOrders = asynchHandler(async(req, res) => {
 })
 
 
+//UPDATE order delivered flag
+//Protected for admin only
+const updateOrderToDelivered = asynchHandler(async(req, res) => {
+    const order = await Order.findById(req.params.id)
+
+    if(order) {
+        order.isDelivered = true
+        order.deliveredAt = Date.now()
+        const updatedOrder = await order.save()
+        res.json(updatedOrder)
+    } else {
+        res.status(404)
+        throw new Error("order not found")
+    }
+})
+
+
+
 module.exports = {
-    addOrderItems, getOrderById, updateOrderToPaid, getMyOrders, getOrders
+    addOrderItems, getOrderById, updateOrderToPaid, getMyOrders, getOrders, updateOrderToDelivered
 }
