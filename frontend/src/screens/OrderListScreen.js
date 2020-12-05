@@ -12,6 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -71,8 +72,8 @@ const OrderListScreen = ({history}) => {
                             <TableCell>{order.user && order.user.name}</TableCell>
                             <TableCell>{order.createdAt.substring(0, 10)}</TableCell>
                             <TableCell>${order.totalPrice}</TableCell>
-                            <TableCell>{order.isPaid ? (order.createdAt.substring(0, 10)) : (<p>Not Paid</p>)}</TableCell>
-                            <TableCell>{order.isDelivered ? (order.deliveredAt.substring(0, 10)) : (<p>Not Delivered</p>)}</TableCell>
+                            <TableCell>{order.isPaid ? (order.createdAt.substring(0, 10)) : (<CloseIcon color="secondary"/>)}</TableCell>
+                            <TableCell>{order.isDelivered ? (order.deliveredAt.substring(0, 10)) : (<CloseIcon color="secondary"/>)}</TableCell>
                             <TableCell>
                                 <Link to={`/order/${order._id}`}>
                                     <Button><VisibilityIcon color="secondary"/></Button>

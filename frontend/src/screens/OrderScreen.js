@@ -10,7 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
 import Message from '../components/Message'
 import Success from '../components/Success'
 import { Link } from 'react-router-dom'

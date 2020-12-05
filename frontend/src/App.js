@@ -18,8 +18,8 @@ import UserListScreen from './screens/UserListScreen'
 import UserEditScreen from './screens/UserEditScreen'
 import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
-import { createMuiTheme, MuiThemeProvider, ThemeProvider,makeStyles } from '@material-ui/core/styles';
-import {blueGrey, deepPurple,grey, teal} from '@material-ui/core/colors'
+import { createMuiTheme, MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
+import {blueGrey, deepPurple} from '@material-ui/core/colors'
 
 
 
@@ -44,11 +44,11 @@ function App() {
   const classes = useStyles();
   return (
     <MuiThemeProvider  theme={theme}>
-    <main>
-    <Router>
-      <Header/>
+      <main>
+        <Router>
+          <Header/>
         
-          <Container>
+            <Container>
           
           <Route path='/shipping' component={ShippingScreen}/>
           <Route path='/order/:id' component={OrderScreen}/>
@@ -64,13 +64,13 @@ function App() {
           <Route path='/admin/productlist' component={ProductListScreen}/>
           <Route path='/admin/product/:id/edit' component={ProductEditScreen}/>
           <Route path='/admin/orderlist' component={OrderListScreen}/>
-          </Container>
+            </Container>
           <Route path='/' component={HomeScreen} exact/>
           
         
-      <Footer/>
-    </Router>
-    </main>
+          <Footer/>
+        </Router>
+      </main>
     </MuiThemeProvider>
     
   );
