@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import {logout} from '../actions/userActions'
 
 const useStyles = makeStyles((theme) => ({
@@ -70,6 +72,7 @@ const Header = () => {
                 </Link>
               </Typography>
               {userInfo ? (<>
+                <AccountCircleIcon/>
                 <Button color="inherit" aria-controls="simple-menu" aria-haspopup="true" onClick={openMenuHandler}>
                   {userInfo.name}<ArrowDropDownIcon/>
                 </Button>
@@ -92,6 +95,7 @@ const Header = () => {
             }
             {userInfo && userInfo.isAdmin && (
               <>
+              <SupervisorAccountIcon/>
               <Button color="inherit" aria-controls="simple-menu" aria-haspopup="true" onClick={openMenuHandler2}>
                 Admin<ArrowDropDownIcon/>
               </Button>
