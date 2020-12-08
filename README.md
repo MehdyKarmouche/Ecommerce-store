@@ -1,5 +1,7 @@
 # UrbeX: E-Commerce store selling urban exlporation equipment
 E-Commerce store using React, Redux, Material-UI, React-Spring, Express, NodeJs, and MongoDB.
+ ### Demo:
+ - https://www.youtube.com/watch?v=2UFwdFDf2NU&feature=youtu.be&ab_channel=Mehdikarmouche
 ## Tasks:
  ### Frontend
   - [x] State management: use Redux and react hooks to manipulate the application state
