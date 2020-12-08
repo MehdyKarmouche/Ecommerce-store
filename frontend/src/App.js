@@ -31,7 +31,13 @@ const theme = createMuiTheme({
     secondary:{
       main:deepPurple[600]
     }
+  },
+  props:{
+    MuiButtonBase:{
+      disableRipple: true
+    }
   }
+
 })
 
 const useStyles = makeStyles((theme) => ({
