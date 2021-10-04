@@ -1,5 +1,5 @@
 # UrbeX: E-Commerce store selling urban exlporation equipment
-E-Commerce store using React, Redux, Material-UI, React-Spring, Express, NodeJs, and MongoDB.
+Full-Stack E-Commerce store using React, Redux, Material-UI, React-Spring, Express, NodeJs, MongoDB, Mongoose and JWT.
 
 <img width="943" alt="1" src="https://user-images.githubusercontent.com/46247214/135903845-61d8754b-9ba1-4a90-92d6-f60ae96c0d99.PNG">
 
